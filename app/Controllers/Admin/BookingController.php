@@ -8,6 +8,7 @@ use App\Core\Database;
 
 class BookingController extends BaseController
 {
+    // Display a listing of the resource.
     public function index()
     {
         if (!Auth::check() || !Auth::isRole('admin')) {
