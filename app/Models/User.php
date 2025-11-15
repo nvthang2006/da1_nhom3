@@ -1,0 +1,13 @@
+<?php
+namespace App\Models;
+
+class User extends BaseModel {
+    protected $table = 'users';
+    public function findByEmail($email){ return $this->fetch("SELECT * FROM {$this->table} WHERE email = :email LIMIT 1", ['email'=>$email]); }
+    public function find($id){ return $this->fetch("SELECT * FROM {$this->table} WHERE user_id = :id", ['id'=>$id]); }
+    public function create($data){
+        $sql = "INSERT INTO {$this->table} (full_name,email,password,phone,role) VALUES (:name,:email,:password,:phone,:role)";
+        $this->execute($sql, ['name'=>$data['full_name'],'email'=>$data['email'],'password'=>$data['password'],'phone'=>$data['phone'],'role'=>$data['role']]);
+        return $this->db->lastInsertId();
+    }
+}
